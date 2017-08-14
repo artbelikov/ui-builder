@@ -9,6 +9,7 @@
       "nUFOlz1WuhaSHk"
     ],
     "onInit": "",
+    "group": "mamka",
     "parentId": null,
     "subtitle": "Form subtitle",
     "dataSource": {
@@ -57,6 +58,7 @@
     "elements": [],
     "children": [],
     "onInit": "",
+    "group": "mamka",
     "parentId": "nUFOlz1WuhaSHk",
     "subtitle": "Form subtitle",
     "dataSource": {

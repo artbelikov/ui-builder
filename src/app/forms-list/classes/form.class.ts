@@ -4,9 +4,10 @@ export class UIForm{
   filename: string
   elements: any[]
   children: Set<string>
-  onInit: string
+  onInit?: string
   parentId: string
-  subtitle: string
+  group?: string;
+  subtitle?: string
   dataSource
 
   constructor(props, private formsList){

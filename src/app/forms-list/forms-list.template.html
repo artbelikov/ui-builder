@@ -4,30 +4,53 @@
             <div class="panel">
                 <p class="panel-heading">
                     <span>Forms</span>
-                    <button class="button is-primary is-small is-pulled-right">
+                    <button class="button is-primary is-small is-pulled-right"
+                            (click)="createForm()"
+                    >
                         New form
                     </button>
                 </p>
                 <div class="panel-block">
                     <p class="control has-icons-left">
-                        <input class="input is-small" type="text" placeholder="search"/>
+                        <input [(ngModel)]="searchText" (click)="searchTextSelected()" class="input is-small" placeholder="search"/>
                         <span class="icon is-small is-left">
                           <i class="fa fa-search"></i>
                           </span>
                     </p>
                 </div>
                 <p class="panel-tabs">
-                    <a class="is-active">All</a>
-                    <a>
-                    <span class="icon is-small">
-                        <i class="fa fa-plus"></i>
-                    </span>
+                    <a (click)="selectFormGroup(null)"
+                       [ngClass]="{'is-active': selectedFormGroup == null}"
+                    >All</a>
+                    <a (click)="selectFormGroup(group)"
+                       (dblclick)="group.editable = true"
+                       [ngClass]="{'is-active': selectedFormGroup === group.name}"
+                       *ngFor="let group of formGroups; let i=index"
+                       >
+                        <span #formGroupName
+                              [attr.contenteditable]="group.editable ? 'true' : null"
+                              (blur)="renameFromGroup(i, formGroupName.textContent)"
+                        >{{group.name}}</span>
+                    </a>
+                    <a (click)="addFormGroup()">
+                        <span class="icon is-small">
+                            <i class="fa fa-plus"></i>
+                        </span>
                     </a>
                 </p>
-                <div class="panel-block" *ngIf="forms">
+                <div class="panel-block" *ngIf="forms && !searchText">
                     <div class="menu">
                         <ul class="menu-list">
-                            <li [formsListBranch]="form.id" *ngFor="let form of forms.roots"></li>
+                            <li [formsListBranch]="form.id" *ngFor="let form of forms.roots | formsGroup:selectedFormGroup"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-block" *ngIf="forms && searchText">
+                    <div class="menu">
+                        <ul class="menu-list">
+                            <li *ngFor="let form of forms.asArray() | formsSearch:searchText">
+                                <a>{{form.title}}</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

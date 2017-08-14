@@ -15,7 +15,9 @@ import { FormsListService } from "./services/forms-list.service"
 })
 export class FormsListComponent {
   forms: UIFormList;
-  selectedFormId: string;
+  formGroups: any[] = []
+  selectedFormGroup: string
+  searchText: string;
 
   constructor(
     private formsListSrv: FormsListService
@@ -45,5 +47,35 @@ export class FormsListComponent {
       .then((json) => {
       this.forms = this.formsListSrv.loadForms(json)
       })
+  }
+
+  public renameFromGroup(i, formGroupName){
+    this.formGroups[i].name = formGroupName
+    this.formGroups[i].editable = false
+    this.selectFormGroup(this.formGroups[i])
+  }
+
+  public addFormGroup(){
+    this.formGroups.push({
+      name: 'New group'
+    })
+  }
+
+  public selectFormGroup(group){
+    this.searchText = null
+    if (group){
+      this.selectedFormGroup = group.name
+    }else{
+      this.selectedFormGroup = null
+    }
+
+  }
+
+  public searchTextSelected(){
+    this.selectedFormGroup = null
+  }
+
+  public createForm(){
+
   }
 }

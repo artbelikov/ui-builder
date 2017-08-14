@@ -22,6 +22,10 @@ export class UIFormList {
     return this.formsList.values()
   }
 
+  public asArray(){
+    return Array.from(this.values())
+  }
+
   public getForm (id: string): UIForm {
     return this.formsList.get(id)
   }
