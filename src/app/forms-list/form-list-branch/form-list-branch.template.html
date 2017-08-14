@@ -1,0 +1,4 @@
+<a (click)="form.select()" [ngClass]="{'is-active':form.isSelected()}">{{form.title}}</a>
+<ul *ngIf="form.hasChildren()">
+    <li [formsListBranch]="child" *ngFor="let child of form.children"></li>
+</ul>
