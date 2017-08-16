@@ -3,23 +3,17 @@ import {UIFormList} from '../classes/forms-list.class'
 
 @Injectable()
 export class FormsListService {
+
   private formList: UIFormList;
 
   public loadForms(nodes: any[]){
-    this.formList = new UIFormList(nodes)
+    let selected = this.formList && this.formList.selectedFormId
+    this.formList = new UIFormList(nodes, selected)
     return this.formList
-  }
-
-  public getForms(){
-    return this.formList.values()
   }
 
   public getForm(id){
     return id && this.formList.getForm(id)
-  }
-
-  public newForm(){
-    this.formList.newForm()
   }
 
 }

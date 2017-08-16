@@ -1,6 +1,6 @@
 <main class="container is-fullhd">
-    <div class="columns is-mobile">
-        <div class="column is-two-thirds">
+    <div class="columns is-mobile is-gapless">
+        <div class="column is-clipped is-two-thirds">
             <div class="panel">
                 <p class="panel-heading">
                     <span>Forms</span>
@@ -56,8 +56,8 @@
                 </div>
             </div>
         </div>
-        <div class="column is-one-third">
-            <form-props></form-props>
+        <div class="column is-one-third" *ngIf="forms">
+            <form-props [formId]="forms.selectedFormId"></form-props>
         </div>
     </div>
 </main>

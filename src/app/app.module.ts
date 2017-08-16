@@ -30,6 +30,8 @@ import { NoContentComponent } from './no-content';
 import '../styles/css/font-awesome.min.css'
 import '../styles/css/bulma.css'
 import { FormsListModule } from "./forms-list/forms-list.module"
+import { APIService } from "@app/services/api.service"
+import { FormsApiService } from "@app/services/forms-api.service"
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -68,7 +70,9 @@ type StoreType = {
    */
   providers: [
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    APIService,
+    FormsApiService,
   ]
 })
 export class AppModule {

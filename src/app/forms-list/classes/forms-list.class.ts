@@ -1,13 +1,15 @@
 import { UIForm } from './form.class';
 import * as url from 'nanoid/url';
 import * as generate from 'nanoid/generate';
+import {orderBy} from 'lodash'
 
 export class UIFormList {
   private formsList = new Map();
   public roots: UIForm[];
   public selectedFormId;
 
-  constructor (_nodes: any[]) {
+  constructor (_nodes: any[], selectedFormId) {
+    this.selectedFormId = selectedFormId
     _nodes.forEach(_node => {
       this.formsList.set(_node.id, new UIForm(_node, this.getThisFormList.bind(this)))
     });
@@ -15,7 +17,7 @@ export class UIFormList {
   }
 
   private _makeRoots () {
-    this.roots = Array.from(this.values()).filter((node: UIForm) => node.isRoot())
+    this.roots = orderBy(Array.from(this.values()).filter((node: UIForm) => node.isRoot()), 'title')
   }
 
   public values () {

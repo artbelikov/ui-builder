@@ -1,3 +1,32 @@
 .menu{
   width: 100%;
 }
+.columns{
+  .column{
+    height: 100vh;
+  }
+  .is-one-third{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    overflow-y: auto;
+    overflow-x: hidden;
+    form-props{
+      flex-grow: 1;
+    }
+  }
+  .is-two-thirds{
+    border-left: 1px solid #dbdbdb;
+    border-right: 1px solid #dbdbdb;
+  }
+}
+.panel-block, .panel-heading, .panel-tabs{
+  border-right: 0;
+  border-left:0;
+}
+.panel-block{
+  &:last-of-type{
+    border-bottom: 0;
+  }
+}

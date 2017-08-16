@@ -87,6 +87,10 @@ module.exports = function (options) {
        */
       modules: [helpers.root('src'), helpers.root('node_modules')],
 
+      alias: {
+        '@app': helpers.root('src/app')
+      }
+
     },
 
     /**
