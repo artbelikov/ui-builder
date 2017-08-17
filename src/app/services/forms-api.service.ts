@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { UIForm } from '../forms-list/classes/form.class';
 import { APIService } from "./api.service"
+import { ModalService } from "@app/services/modal.service"
 
 @Injectable()
 export class FormsApiService{
@@ -15,7 +16,10 @@ export class FormsApiService{
     forms: UIForm[]
   };
 
-  constructor(private api: APIService) {
+  constructor(
+    private api: APIService,
+    private modal: ModalService
+    ) {
     this.feathersService = this.api.feathersApp.service('forms');
     this.feathersService.on('created', (form) => this.onCreated(form));
     this.feathersService.on('updated', (form) => this.onUpdated(form));
@@ -31,9 +35,27 @@ export class FormsApiService{
     //   })
     // })
 
+    this.api.socket.on('trigger', event => {
+      this.trigger(event)
+    })
+
   }
+
+  public removeForm(id){
+    this.modal.callModal().then( resolve => {
+      this.feathersService.remove(id)
+    })
+  }
+
+  public trigger(event){
+    switch (event){
+      case 'connection':
+        this.find()
+        break
+    }
+  }
+
   public update(form){
-    debugger
     this.feathersService.update(form.id, form)
   }
 
@@ -58,13 +80,17 @@ export class FormsApiService{
     return foundIndex;
   }
 
-  private onCreated(form: UIForm) {
+  public createForm(form){
+    this.feathersService.create(form)
+  }
+
+  private onCreated(form) {
     this.dataStore.forms.push(form);
 
     this.formsObserver.next(this.dataStore.forms);
   }
 
-  private onUpdated(form: UIForm) {
+  private onUpdated(form) {
     const index = this.getIndex(form.id);
 
     this.dataStore.forms[index] = form;

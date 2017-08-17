@@ -27,7 +27,7 @@ export class FormsPropsComponent {
   }
 
   public deleteForm(){
-
+    this.formApi.removeForm(this.form.id)
   }
   public saveForm(){
     this.formApi.update(this.form.serialize())

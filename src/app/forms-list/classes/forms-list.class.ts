@@ -64,13 +64,22 @@ export class UIFormList {
     console.warn(this.values())
   }
 
-  public newForm(parentId = null){
-    let _nodeTemplate: any = {}
-    _nodeTemplate.id = generate(url, 14);
-    _nodeTemplate.parentId = parentId;
-    this.formsList.set(_nodeTemplate.id, new UIForm(_nodeTemplate, this.getThisFormList.bind(this)))
-    this._makeRoots()
-    return _nodeTemplate.id
+  public static createForm({parentId = null, group = null}){
+    let _nodeTemplate: any = {
+      id: generate(url, 14),
+      title: 'New Form',
+      filename: '',
+      elements: {},
+      children: [],
+      onInit: '',
+      parentId: parentId,
+      group: group,
+      subtitle: '',
+      dataSource: {},
+      objectType: '',
+      section: '',
+    }
+    return _nodeTemplate
   }
 
   public select(id){

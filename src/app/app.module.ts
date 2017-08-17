@@ -32,6 +32,7 @@ import '../styles/css/bulma.css'
 import { FormsListModule } from "./forms-list/forms-list.module"
 import { APIService } from "@app/services/api.service"
 import { FormsApiService } from "@app/services/forms-api.service"
+import { ModalService } from "@app/services/modal.service"
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -73,6 +74,7 @@ type StoreType = {
     APP_PROVIDERS,
     APIService,
     FormsApiService,
+    ModalService
   ]
 })
 export class AppModule {

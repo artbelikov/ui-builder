@@ -16,4 +16,8 @@ export class FormsListService {
     return id && this.formList.getForm(id)
   }
 
+  public createForm(params){
+    return UIFormList.createForm(params)
+  }
+
 }

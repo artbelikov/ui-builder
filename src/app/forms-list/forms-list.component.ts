@@ -24,6 +24,7 @@ export class FormsListComponent {
   selectedFormGroup: string
   searchText: string;
   subscribtion
+  selectedFormId: string
 
   constructor(
     private formsListSrv: FormsListService,
@@ -63,11 +64,14 @@ export class FormsListComponent {
     this.subscribtion = this.api.forms$.subscribe((forms) => {
       console.warn(forms)
       this.forms = this.formsListSrv.loadForms(forms)
+      if(this.selectedFormId){
+        this.forms.selectedFormId = this.selectedFormId
+        this.selectedFormId = null
+      }
       this.ref.markForCheck();
     }, (err) => {
       console.error(err);
     });
-    this.api.find()
   }
 
   public ngOnDestroy() {
@@ -101,6 +105,8 @@ export class FormsListComponent {
   }
 
   public createForm(){
-
+    let newForm = this.formsListSrv.createForm({ group: this.selectedFormGroup })
+    this.selectedFormId = newForm.id
+    this.api.createForm(newForm)
   }
 }
