@@ -11,6 +11,8 @@ export class UIForm{
   dataSource;
   objectType: string
   section: string
+  useCache: boolean
+  $$runFunction: boolean
 
   constructor(props, private formsList){
     if (!props.id) {
@@ -21,6 +23,7 @@ export class UIForm{
         this[prop] = props[prop]
       }
     }
+    this.$$runFunction = !!this.onInit
     this.dataSource = this.dataSource || {}
     this.children = new Set(<string[]>props.children)
   }
@@ -33,7 +36,8 @@ export class UIForm{
     return this.parentId == null;
   }
 
-  public select(){
+  public select(event){
+    event.stopPropagation()
     this.formsList().select(this.id)
   }
 
@@ -55,6 +59,7 @@ export class UIForm{
       dataSource: this.dataSource,
       objectType: this.objectType,
       section: this.section,
+      useCache: this.useCache,
     }
   }
 }

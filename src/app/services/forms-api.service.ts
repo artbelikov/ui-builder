@@ -62,7 +62,6 @@ export class FormsApiService{
   public find() {
     this.feathersService.find((err, forms) => {
       if (err) return console.error(err);
-      console.warn(forms)
       this.dataStore.forms = forms.data;
       this.formsObserver.next(this.dataStore.forms);
     });

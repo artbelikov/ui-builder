@@ -1,8 +1,8 @@
 <div *ngIf="form">
     <div class="field">
-        <label class="label">Form title</label>
+        <label class="label is-small">Form title</label>
         <div class="control has-icons-right">
-            <input [ngClass]="{'input': !0, 'is-danger': isFieldRequired(formTitle)}"
+            <input [ngClass]="{'input': !0, 'is-danger': isFieldRequired(formTitle), 'is-small': !0}"
                    required=""
                    #formTitle="ngModel"
                    [(ngModel)]="form.title">
@@ -12,88 +12,102 @@
         </div>
         <p class="help is-danger" *ngIf="isFieldRequired(formTitle)">Form title is required</p>
     </div>
-    <div class="field">
-        <label class="label">Form subtitle</label>
+    <div class="field" *ngFor="let formControl of formInputs">
+        <label class="label is-small" *ngIf="formControl.element !== 'checkbox'">{{formControl.label}}</label>
         <div class="control has-icons-right">
-            <input [ngClass]="{'input': !0}"
-                   [(ngModel)]="form.subtitle">
-        </div>
-    </div>
-    <div class="field">
-        <label class="label">Data source</label>
-        <div class="control">
-            <div class="select">
-                <select [(ngModel)]="form.dataSource.type">
-                    <option [ngValue]="0">Server-side method</option>
-                    <option [ngValue]="1">Client-side method</option>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="field" *ngIf="form.dataSource.type != null">
-        <label class="label is-small">Method name</label>
-        <div class="control has-icons-right">
-            <input [ngClass]="['input', 'is-small']"
-                   required
-                   [(ngModel)]="form.dataSource.method">
-        </div>
-    </div>
-    <div class="field" *ngIf="form.dataSource.type != null">
-        <label class="label is-small">Arguments</label>
-        <div class="control has-icons-right">
-            <input [ngClass]="['input', 'is-small']"
-                   placeholder="{foo: 'bar'}"
-                   [(ngModel)]="form.dataSource.arguments">
-        </div>
-    </div>
-    <div class="field">
-        <div class="control">
-            <label class="checkbox">
-                <input [(ngModel)]="form.useCache"
-                       type="checkbox">
-                Use cache
+            <input [attr.type]="formControl.type"
+                   class="input is-small"
+                   *ngIf="formControl.element === 'input'"
+                   [(ngModel)]="form[formControl.prop]">
+            <label class="checkbox"
+                   *ngIf="formControl.element === 'checkbox'"
+            >
+                <input [(ngModel)]="form[formControl.prop]"
+                    type="checkbox">
+                {{formControl.label}}
             </label>
-        </div>
-    </div>
-    <div class="field">
-        <label class="label">Entity type</label>
-        <div class="control">
-            <div class="select">
-                <select [(ngModel)]="form.objectType">
-                    <option [ngValue]="'0'">Policy</option>
-                    <option [ngValue]="'1'">Task</option>
-                    <option [ngValue]="'2'">Local task</option>
-                    <option [ngValue]="'3'">Settings</option>
+            <div class="select is-small" *ngIf="formControl.element === 'select'">
+                <select [(ngModel)]="form[formControl.prop]">
+                    <option [ngValue]="opt.value" *ngFor="let opt of formControl.options">{{opt.label}}</option>
                 </select>
             </div>
         </div>
     </div>
-    <div class="field">
-        <div class="control">
-            <label class="checkbox">
-                <input [(ngModel)]="form.$$runFunction"
-                        type="checkbox">
-                Run initialization function
-            </label>
-        </div>
-    </div>
-    <div class="field" *ngIf="form.$$runFunction">
-        <label class="label is-small">Function name</label>
-        <div class="control has-icons-right">
-            <input [ngClass]="['input', 'is-small']"
-                   [(ngModel)]="form.onInit">
-        </div>
-    </div>
-    <div class="field">
-        <label class="label">Section</label>
-        <div class="control">
-            <div class="select">
-                <select [(ngModel)]="form.section">
-                    <option [ngValue]="0">Settings</option>
-                </select>
-            </div>
-        </div>
-    </div>
+    <!--<div class="field">-->
+        <!--<label class="label">Data source</label>-->
+        <!--<div class="control">-->
+            <!--<div class="select">-->
+                <!--<select [(ngModel)]="form.dataSource.type">-->
+                    <!--<option [ngValue]="0">Server-side method</option>-->
+                    <!--<option [ngValue]="1">Client-side method</option>-->
+                <!--</select>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="field" *ngIf="form.dataSource.type != null">-->
+        <!--<label class="label is-small">Method name</label>-->
+        <!--<div class="control has-icons-right">-->
+            <!--<input [ngClass]="['input', 'is-small']"-->
+                   <!--required-->
+                   <!--[(ngModel)]="form.dataSource.method">-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="field" *ngIf="form.dataSource.type != null">-->
+        <!--<label class="label is-small">Arguments</label>-->
+        <!--<div class="control has-icons-right">-->
+            <!--<input [ngClass]="['input', 'is-small']"-->
+                   <!--placeholder="{foo: 'bar'}"-->
+                   <!--[(ngModel)]="form.dataSource.arguments">-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="field">-->
+        <!--<div class="control">-->
+            <!--<label class="checkbox">-->
+                <!--<input [(ngModel)]="form.useCache"-->
+                       <!--type="checkbox">-->
+                <!--Use cache-->
+            <!--</label>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="field">-->
+        <!--<label class="label">Entity type</label>-->
+        <!--<div class="control">-->
+            <!--<div class="select">-->
+                <!--<select [(ngModel)]="form.objectType">-->
+                    <!--<option [ngValue]="'0'">Policy</option>-->
+                    <!--<option [ngValue]="'1'">Task</option>-->
+                    <!--<option [ngValue]="'2'">Local task</option>-->
+                    <!--<option [ngValue]="'3'">Settings</option>-->
+                <!--</select>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="field">-->
+        <!--<div class="control">-->
+            <!--<label class="checkbox">-->
+                <!--<input [(ngModel)]="form.$$runFunction"-->
+                        <!--type="checkbox">-->
+                <!--Run initialization function-->
+            <!--</label>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="field" *ngIf="form.$$runFunction">-->
+        <!--<label class="label is-small">Function name</label>-->
+        <!--<div class="control has-icons-right">-->
+            <!--<input [ngClass]="['input', 'is-small']"-->
+                   <!--[(ngModel)]="form.onInit">-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="field">-->
+        <!--<label class="label">Section</label>-->
+        <!--<div class="control">-->
+            <!--<div class="select">-->
+                <!--<select [(ngModel)]="form.section">-->
+                    <!--<option [ngValue]="0">Settings</option>-->
+                <!--</select>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
     <div class="field is-grouped">
         <div class="control is-expanded">
             <button class="button is-outlined" (click)="deleteForm()">

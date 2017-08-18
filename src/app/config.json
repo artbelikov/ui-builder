@@ -1,3 +1,94 @@
 {
-  "apiUrl": "http://127.0.0.1:3030"
+  "apiUrl": "http://127.0.0.1:3030",
+  "formInputs": [
+    {
+      "element": "select",
+      "prop": "dataSourceType",
+      "label": "Data source",
+      "options": [
+        {
+          "label": "Server-side method",
+          "value": 0
+        },
+        {
+          "label": "Client-side method",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "element": "input",
+      "type": "text",
+      "prop": "dataSourceMethod",
+      "label": "Method name"
+    },
+    {
+      "element": "input",
+      "type": "text",
+      "prop": "dataSourceArguments",
+      "label": "Arguments"
+    },
+    {
+      "element": "select",
+      "prop": "objectType",
+      "label": "Entity type",
+      "options": [
+        {
+          "label": "Policy",
+          "value": 0
+        },
+        {
+          "label": "Task",
+          "value": 1
+        },
+        {
+          "label": "Local task",
+          "value": 2
+        },
+        {
+          "label": "Settings",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "element": "input",
+      "type": "text",
+      "prop": "onInit",
+      "label": "Execute function"
+    },
+    {
+      "element": "select",
+      "prop": "section",
+      "label": "Section",
+      "options": [
+        {
+          "label": "Section 1",
+          "value": 0
+        },
+        {
+          "label": "Section 2",
+          "value": 1
+        },
+        {
+          "label": "Section 3",
+          "value": 2
+        },
+        {
+          "label": "Section 4",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "element": "checkbox",
+      "prop": "useCache",
+      "label": "Use cache"
+    },
+    {
+      "element": "checkbox",
+      "prop": "isMandatory",
+      "label": "Mandatory mode"
+    }
+  ]
 }

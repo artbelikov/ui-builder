@@ -4,6 +4,8 @@ import {
 import { FormsListService } from "../forms-list/services/forms-list.service"
 import { UIForm } from "../forms-list/classes/form.class"
 import { FormsApiService } from "@app/services/forms-api.service"
+const config = require('@app/config.json')
+import {toPairs} from 'lodash'
 
 @Component({
   selector: 'form-props',
@@ -12,11 +14,14 @@ import { FormsApiService } from "@app/services/forms-api.service"
 })
 export class FormsPropsComponent {
   public form: UIForm
+  public formInputs = config.formInputs
 
   constructor(
     private formSrv: FormsListService,
     private formApi: FormsApiService
-  ) {}
+  ) {
+
+  }
 
   @Input() set formId(id){
     this.form = this.formSrv.getForm(id)
