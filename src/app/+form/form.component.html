@@ -1,0 +1,22 @@
+<main class="container is-fullhd">
+    <div class="columns is-mobile is-gapless">
+        <div class="column is-clipped is-2">
+            <toolbar></toolbar>
+        </div>
+        <div class="column is-clipped">
+            <div class="elements-droparea is-overlay"
+                 appDroparea
+            >
+                <div class="elements-stack">
+                    <div class="ui-element" *ngFor="let element of elements; let i = index">
+                        kygk
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="column is-clipped is-3">
+            <form-props [formId]="formId"></form-props>
+        </div>
+    </div>
+</main>

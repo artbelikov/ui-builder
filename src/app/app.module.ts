@@ -1,44 +1,44 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { BrowserModule } from '@angular/platform-browser'
+import { FormsModule } from '@angular/forms'
+import { HttpModule } from '@angular/http'
 import {
   NgModule,
   ApplicationRef
-} from '@angular/core';
+} from '@angular/core'
 import {
   removeNgStyles,
   createNewHosts,
   createInputTransfer
-} from '@angularclass/hmr';
+} from '@angularclass/hmr'
 import {
   RouterModule,
   PreloadAllModules
-} from '@angular/router';
-
+} from '@angular/router'
+import 'lodash'
 /*
  * Platform and Environment providers/directives/pipes
  */
-import { ENV_PROVIDERS } from './environment';
-import { ROUTES } from './app.routes';
+import { ENV_PROVIDERS } from './environment'
+import { ROUTES } from './app.routes'
 // App is our top level component
-import { AppComponent } from './app.component';
-import { APP_RESOLVER_PROVIDERS } from './app.resolver';
-import { AppState, InternalStateType } from './app.service';
-import { HomeComponent } from './home';
-import { NoContentComponent } from './no-content';
+import { AppComponent } from './app.component'
+import { APP_RESOLVER_PROVIDERS } from './app.resolver'
+import { AppState, InternalStateType } from './app.service'
+import { HomeComponent } from './home'
+import { NoContentComponent } from './no-content'
 
 import '../styles/css/font-awesome.min.css'
 import '../styles/css/bulma.css'
-import { FormsListModule } from "./forms-list/forms-list.module"
-import { APIService } from "@app/services/api.service"
-import { FormsApiService } from "@app/services/forms-api.service"
-import { ModalService } from "@app/services/modal.service"
+import { FormsListModule } from './forms-list/forms-list.module'
+import { APIService } from '@app/services/api.service'
+import { FormsApiService } from '@app/services/forms-api.service'
+import { ModalService } from '@app/services/modal.service'
 
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
   AppState
-];
+]
 
 type StoreType = {
   state: InternalStateType,
@@ -50,7 +50,7 @@ type StoreType = {
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
 @NgModule({
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
     HomeComponent,
@@ -63,7 +63,7 @@ type StoreType = {
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(ROUTES, {useHash: true, preloadingStrategy: PreloadAllModules}),
     FormsListModule
   ],
   /**
@@ -79,60 +79,59 @@ type StoreType = {
 })
 export class AppModule {
 
-  constructor(
-    public appRef: ApplicationRef,
-    public appState: AppState
-  ) {}
+  constructor (public appRef: ApplicationRef,
+               public appState: AppState) {
+  }
 
-  public hmrOnInit(store: StoreType) {
+  public hmrOnInit (store: StoreType) {
     if (!store || !store.state) {
-      return;
+      return
     }
-    console.log('HMR store', JSON.stringify(store, null, 2));
+    console.log('HMR store', JSON.stringify(store, null, 2))
     /**
      * Set state
      */
-    this.appState._state = store.state;
+    this.appState._state = store.state
     /**
      * Set input values
      */
     if ('restoreInputValues' in store) {
-      let restoreInputValues = store.restoreInputValues;
-      setTimeout(restoreInputValues);
+      let restoreInputValues = store.restoreInputValues
+      setTimeout(restoreInputValues)
     }
 
-    this.appRef.tick();
-    delete store.state;
-    delete store.restoreInputValues;
+    this.appRef.tick()
+    delete store.state
+    delete store.restoreInputValues
   }
 
-  public hmrOnDestroy(store: StoreType) {
-    const cmpLocation = this.appRef.components.map((cmp) => cmp.location.nativeElement);
+  public hmrOnDestroy (store: StoreType) {
+    const cmpLocation = this.appRef.components.map((cmp) => cmp.location.nativeElement)
     /**
      * Save state
      */
-    const state = this.appState._state;
-    store.state = state;
+    const state = this.appState._state
+    store.state = state
     /**
      * Recreate root elements
      */
-    store.disposeOldHosts = createNewHosts(cmpLocation);
+    store.disposeOldHosts = createNewHosts(cmpLocation)
     /**
      * Save input values
      */
-    store.restoreInputValues  = createInputTransfer();
+    store.restoreInputValues = createInputTransfer()
     /**
      * Remove styles
      */
-    removeNgStyles();
+    removeNgStyles()
   }
 
-  public hmrAfterDestroy(store: StoreType) {
+  public hmrAfterDestroy (store: StoreType) {
     /**
      * Display new elements
      */
-    store.disposeOldHosts();
-    delete store.disposeOldHosts;
+    store.disposeOldHosts()
+    delete store.disposeOldHosts
   }
 
 }

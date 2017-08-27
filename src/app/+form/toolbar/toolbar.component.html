@@ -1,0 +1,7 @@
+<div class="toolbar-inner is-overlay">
+    <button class="button is-outlined is-small is-primary"
+            draggable="true"
+            *ngFor="let button of buttons"
+            (dragstart)="dragstart($event)"
+    >{{button.title}}</button>
+</div>

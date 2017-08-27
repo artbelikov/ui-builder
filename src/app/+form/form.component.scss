@@ -1,0 +1,11 @@
+.column{
+  height: 100vh;
+  position: relative;
+  border-left: 1px solid #dbdbdb;
+  & + .column{
+    border-right: 1px solid #dbdbdb;
+  }
+  &:last-of-type{
+    border-left: none;
+  }
+}

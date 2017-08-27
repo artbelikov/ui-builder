@@ -8,7 +8,6 @@ import * as generate from 'nanoid/generate';
 import {UIFormList} from './classes/forms-list.class'
 import { FormsListService } from "./services/forms-list.service"
 import { FormsApiService } from "../services/forms-api.service"
-import { UIForm } from "./classes/form.class"
 
 @Component({
   selector: 'forms-list',
@@ -23,7 +22,7 @@ export class FormsListComponent {
   formGroups: any[] = []
   selectedFormGroup: string
   searchText: string;
-  subscribtion
+  subscription
   selectedFormId: string
 
   constructor(
@@ -61,7 +60,7 @@ export class FormsListComponent {
   }
 
   public ngOnInit(){
-    this.subscribtion = this.api.forms$.subscribe((forms) => {
+    this.subscription = this.api.forms$.subscribe((forms = []) => {
       console.warn(forms)
       this.forms = this.formsListSrv.loadForms(forms)
       if(this.selectedFormId){
@@ -75,7 +74,7 @@ export class FormsListComponent {
   }
 
   public ngOnDestroy() {
-    this.subscribtion.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   public renameFromGroup(i, formGroupName){

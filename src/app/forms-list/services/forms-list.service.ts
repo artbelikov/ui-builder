@@ -12,6 +12,10 @@ export class FormsListService {
     return this.formList
   }
 
+  public getFormList(){
+    return this.formList
+  }
+
   public getForm(id){
     return id && this.formList.getForm(id)
   }

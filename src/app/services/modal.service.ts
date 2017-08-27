@@ -8,14 +8,23 @@ export class ModalService {
 
   }
 
-  public callModal(type = 'confirm'){
+  public callModal(type = ModalTypes.Simple, message){
     return new Promise((resolve, reject) => {
       switch(type){
-        case 'confirm':
-          let result = confirm()
+        case ModalTypes.Confirm:
+          let result = confirm(message)
           result ? resolve() : reject()
           break
       }
     })
   }
 }
+
+enum ModalTypes{
+  Confirm,
+  Simple,
+  Card,
+  Error
+}
+
+export const modalTypes = ModalTypes

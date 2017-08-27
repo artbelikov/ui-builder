@@ -3,12 +3,10 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { UIForm } from '../forms-list/classes/form.class';
 import { APIService } from "./api.service"
-import { ModalService } from "@app/services/modal.service"
+import { ModalService, modalTypes } from "@app/services/modal.service"
 
 @Injectable()
 export class FormsApiService{
-  feathersApp
-  socket
   public forms$: Observable<UIForm[]>;
   private formsObserver: Observer<UIForm[]>;
   private feathersService: any;
@@ -29,12 +27,6 @@ export class FormsApiService{
 
     this.dataStore = { forms: [] };
 
-    // System.import('./forms.json').then( json => {
-    //   json.forEach(form => {
-    //     this.feathersService.create(form);
-    //   })
-    // })
-
     this.api.socket.on('trigger', event => {
       this.trigger(event)
     })
@@ -42,9 +34,9 @@ export class FormsApiService{
   }
 
   public removeForm(id){
-    this.modal.callModal().then( resolve => {
+    this.modal.callModal(modalTypes.Confirm, 'Delete selected form?').then( resolve => {
       this.feathersService.remove(id)
-    })
+    }, reject => {}).catch(() => {})
   }
 
   public trigger(event){
@@ -85,23 +77,18 @@ export class FormsApiService{
 
   private onCreated(form) {
     this.dataStore.forms.push(form);
-
     this.formsObserver.next(this.dataStore.forms);
   }
 
   private onUpdated(form) {
     const index = this.getIndex(form.id);
-
     this.dataStore.forms[index] = form;
-
     this.formsObserver.next(this.dataStore.forms);
   }
 
   private onRemoved(form) {
     const index = this.getIndex(form.id);
-
     this.dataStore.forms.splice(index, 1);
-
     this.formsObserver.next(this.dataStore.forms);
   }
 

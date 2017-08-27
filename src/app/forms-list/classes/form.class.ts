@@ -14,7 +14,7 @@ export class UIForm{
   useCache: boolean
   $$runFunction: boolean
 
-  constructor(props, private formsList){
+  constructor(props, private $formsList){
     if (!props.id) {
       return;
     }
@@ -38,28 +38,23 @@ export class UIForm{
 
   public select(event){
     event.stopPropagation()
-    this.formsList().select(this.id)
+    this.$formsList().select(this.id)
   }
 
   public isSelected(){
-    return this.formsList().isSelected(this.id)
+    return this.$formsList().isSelected(this.id)
   }
 
   public serialize(){
-    return {
-      id: this.id,
-      title: this.title,
-      filename: this.filename,
-      elements: this.elements,
-      children: Array.from(this.children.values()),
-      onInit: this.onInit,
-      parentId: this.parentId,
-      group: this.group,
-      subtitle: this.subtitle,
-      dataSource: this.dataSource,
-      objectType: this.objectType,
-      section: this.section,
-      useCache: this.useCache,
-    }
+    let result: any = {}
+    const skipSymbols = ['_', '$']
+    _.each(<any>this, (value, prop) => {
+      let firstSymbol = (<string>prop).charAt(0)
+      if (skipSymbols.indexOf(firstSymbol) >= 0)return
+      result[prop] = value
+    })
+    result.children = Array.from(this.children.values())
+    console.warn(result)
+    return result
   }
 }
