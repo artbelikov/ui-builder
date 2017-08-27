@@ -5,15 +5,14 @@ import {
 } from '@angular/core';
 import * as url from 'nanoid/url';
 import * as generate from 'nanoid/generate';
-import {UIFormList} from './classes/forms-list.class'
-import { FormsListService } from "./services/forms-list.service"
-import { FormsApiService } from "../services/forms-api.service"
+import { FormsApiService } from '@app/services/forms-api.service'
+import { UIFormList } from '@app/services/classes/forms-list.class'
 
 @Component({
   selector: 'forms-list',
   providers: [
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: [ './forms-list.component.scss' ],
   templateUrl: './forms-list.template.html'
 })
@@ -26,8 +25,7 @@ export class FormsListComponent {
   selectedFormId: string
 
   constructor(
-    private formsListSrv: FormsListService,
-    private api:FormsApiService,
+    private formsApi: FormsApiService,
     private ref: ChangeDetectorRef
   ) {
     // console.warn()
@@ -60,13 +58,9 @@ export class FormsListComponent {
   }
 
   public ngOnInit(){
-    this.subscription = this.api.forms$.subscribe((forms = []) => {
+    this.subscription = this.formsApi.forms$.subscribe((forms) => {
       console.warn(forms)
-      this.forms = this.formsListSrv.loadForms(forms)
-      if(this.selectedFormId){
-        this.forms.selectedFormId = this.selectedFormId
-        this.selectedFormId = null
-      }
+      this.forms = forms
       this.ref.markForCheck();
     }, (err) => {
       console.error(err);
@@ -104,8 +98,7 @@ export class FormsListComponent {
   }
 
   public createForm(){
-    let newForm = this.formsListSrv.createForm({ group: this.selectedFormGroup })
+    let newForm = this.formsApi.createForm({ group: this.selectedFormGroup, parentId: null })
     this.selectedFormId = newForm.id
-    this.api.createForm(newForm)
   }
 }

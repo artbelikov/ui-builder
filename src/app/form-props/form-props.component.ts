@@ -2,8 +2,6 @@ import {
   ChangeDetectorRef,
   Component, Input
 } from '@angular/core';
-import { FormsListService } from "../forms-list/services/forms-list.service"
-import { UIForm } from "../forms-list/classes/form.class"
 import { FormsApiService } from "@app/services/forms-api.service"
 const config = require('@app/config.json')
 
@@ -13,12 +11,11 @@ const config = require('@app/config.json')
   templateUrl: './form-props.template.html'
 })
 export class FormsPropsComponent {
-  public form: UIForm
+  public form
   public formInputs = config.formInputs
   public isLoading
 
   constructor(
-    private formSrv: FormsListService,
     private formApi: FormsApiService,
     private ref: ChangeDetectorRef
   ) {
@@ -26,7 +23,7 @@ export class FormsPropsComponent {
   }
 
   @Input() set formId(id){
-    this.form = this.formSrv.getForm(id)
+    this.form = this.formApi.getForm(id)
   }
 
   public isFieldRequired(field){
@@ -34,12 +31,11 @@ export class FormsPropsComponent {
   }
 
   public deleteForm(){
-    this.formApi.removeForm(this.form.id)
-    this.formSrv.getFormList().selectedFormId = null
+    this.formApi.remove(this.form.id)
   }
   public saveForm(){
     this.isLoading = true;
-    this.formApi.update(this.form.serialize())
+    this.formApi.update(this.form)
     setTimeout(()=>{
       this.isLoading = false
       this.ref.detectChanges()

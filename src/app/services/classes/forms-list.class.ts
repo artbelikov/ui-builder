@@ -11,7 +11,7 @@ export class UIFormList {
   constructor (_nodes: any[], selectedFormId) {
     this.selectedFormId = selectedFormId
     _nodes.forEach(_node => {
-      this.formsList.set(_node.id, new UIForm(_node, this.getThisFormList.bind(this)))
+      this.set(_node)
     });
     this._makeRoots()
   }
@@ -64,7 +64,7 @@ export class UIFormList {
     console.warn(this.values())
   }
 
-  public static createForm({parentId = null, group = null}){
+  public static createForm({parentId = null, group = null} = {}){
     let _nodeTemplate: any = {
       id: generate(url, 14),
       title: 'New Form',
@@ -80,6 +80,14 @@ export class UIFormList {
       section: '',
     }
     return _nodeTemplate
+  }
+
+  public set(form){
+    this.formsList.set(form.id, new UIForm(form, this.getThisFormList.bind(this)))
+  }
+
+  public remove(id){
+    this.formsList.delete(id)
   }
 
   public select(id){

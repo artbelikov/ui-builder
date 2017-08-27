@@ -2,9 +2,8 @@ import {
   Component,
   Input
 } from '@angular/core';
-import { FormsListService } from "../services/forms-list.service"
-import { UIForm } from "../classes/form.class"
 import { Router } from "@angular/router"
+import { FormsApiService } from '@app/services/forms-api.service'
 
 @Component({
   selector: '[formsListBranch]',
@@ -12,17 +11,17 @@ import { Router } from "@angular/router"
   templateUrl: './form-list-branch.template.html'
 })
 export class FormListBranch{
-  form: UIForm
+  form
 
   constructor(
-    private formsListSrv: FormsListService,
+    private formsApi: FormsApiService,
     private router: Router
   ){
 
   }
 
   @Input() set formsListBranch(id){
-    this.form = this.formsListSrv.getForm(id)
+    this.form = this.formsApi.getForm(id)
   }
 
   navigateToFormDesign(){

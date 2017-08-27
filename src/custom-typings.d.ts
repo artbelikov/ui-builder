@@ -130,3 +130,4 @@ interface NodeModule extends WebpackModule {}
 interface Global extends GlobalEnvironment  {}
 declare module 'feathers-client';
 declare var feathers;
+declare var _;
