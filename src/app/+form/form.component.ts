@@ -1,46 +1,44 @@
 import {
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
 } from '@angular/core'
-import { ElementsStackService } from '@app/+form/services/elements-stack.service'
 import { ActivatedRoute } from '@angular/router'
-import { UIFormList } from '@app/services/classes/forms-list.class'
 import { FormsApiService } from '@app/services/forms-api.service'
+import { ElementsService } from '@app/+form/services/elements.service'
 
 @Component({
   selector: 'ui-form',
   templateUrl: './form.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./form.component.scss']
 })
 export class UIFormComponent {
-  private subscription
-  public elements
   public formId
   public form;
   public selectedElement
+  public cursorPosition = 0
 
-  constructor (private elementsStack: ElementsStackService,
+  constructor (private elements: ElementsService,
                private ref: ChangeDetectorRef,
                private formsApi: FormsApiService,
                private route: ActivatedRoute) {
-
+    this.formId = _.get(this.route, 'snapshot.params.id')
   }
 
   public ngOnInit () {
-    this.subscription = this.formsApi.forms$.subscribe((forms:UIFormList) => {
-      console.warn(forms)
-      this.formId = _.get(this.route, 'snapshot.params.id')
-      this.form = forms.getForm(this.formId)
-      this.ref.markForCheck()
-    }, (err) => {
-      console.error(err)
+    this.formsApi.fetchForm(this.formId).then(form => {
+      form.elements = form.elements || []
+      this.form = form
+      this.ref.detectChanges()
     })
   }
 
-  public ngOnDestroy () {
-    this.subscription.unsubscribe()
+  public addElement(event){
+    let elementType = event.dataTransfer.getData("text/plain")
+    console.warn(elementType)
+    let element = this.elements.addElement(elementType)
+    this.form.elements.splice(this.cursorPosition, 0, element)
+    this.cursorPosition = this.form.elements.length
+    console.warn(element)
   }
 
 }

@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router'
 import { routes } from './form.routes'
 import { UIFormComponent } from './form.component'
 import { ToolbarComponent } from '@app/+form/toolbar/toolbar.component'
-import { ElementsStackService } from '@app/+form/services/elements-stack.service'
+import { ElementsService } from '@app/+form/services/elements.service'
 import { DropareaDirective } from '@app/+form/services/droparea.directive'
 import { SharedModule } from '@app/shared/shared.module'
 import { FormsModule } from '@angular/forms'
@@ -25,7 +25,7 @@ console.log('`Form` bundle loaded asynchronously')
     RouterModule.forChild(routes),
   ],
   providers: [
-    ElementsStackService
+    ElementsService
   ]
 })
 export class UIFormModule {

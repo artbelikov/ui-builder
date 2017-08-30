@@ -2,6 +2,6 @@
     <button class="button is-outlined is-small is-primary"
             draggable="true"
             *ngFor="let button of buttons"
-            (dragstart)="dragstart($event)"
+            (dragstart)="dragstart($event, button)"
     >{{button.title}}</button>
 </div>

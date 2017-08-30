@@ -24,10 +24,8 @@ export class FormsApiService{
     this.feathersService.on('removed', (form) => this.onRemoved(form));
 
     this.forms$ = Observable.create((observer) => {
-      console.warn(observer)
       this.formsObserver = observer
     });
-    console.warn(this.forms$)
     this.dataStore = { forms: new UIFormList([], null) };
 
     this.api.socket.on('trigger', this.trigger.bind(this) )
@@ -43,7 +41,7 @@ export class FormsApiService{
   public trigger(event){
     switch (event){
       case 'connection':
-        this.find()
+        //this.find()
         break
     }
   }
@@ -62,7 +60,15 @@ export class FormsApiService{
   }
 
   public getForm(id: string) {
-    return this.dataStore.forms.getForm(id);
+    return id && this.dataStore.forms.getForm(id);
+  }
+
+  public fetchForm(id: string) {
+    if (id){
+      return this.feathersService.get(id)
+    }else{
+      return Promise.resolve(null)
+    }
   }
 
   public getFormsList(){

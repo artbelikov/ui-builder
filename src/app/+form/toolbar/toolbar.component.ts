@@ -1,6 +1,7 @@
 import {
   Component,
 } from '@angular/core';
+import { ElementsTypes } from '@app/+form/classes/element.class'
 
 @Component({
   selector: 'toolbar',
@@ -9,19 +10,21 @@ import {
 })
 export class ToolbarComponent {
   buttons = [
-      {
-          title: 'Text input',
-          element: 'text-input'
-      },{
-          title: 'Date input',
-          element: 'data-input'
-      },{
-          title: 'Select',
-          element: 'select'
-      },
   ];
 
-  public dragstart(event){
+  constructor(){
+    _.each(ElementsTypes, type => {
+      if(typeof type === 'string'){
+        this.buttons.push({
+          element: type,
+          title: type
+        })
+      }
+    })
+  }
+
+  public dragstart(event, button){
       event.dataTransfer.dropEffect = 'move';
+      event.dataTransfer.setData("text/plain", button.element)
   }
 }

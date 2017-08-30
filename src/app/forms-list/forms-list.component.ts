@@ -58,8 +58,8 @@ export class FormsListComponent {
   }
 
   public ngOnInit(){
+    this.formsApi.find()
     this.subscription = this.formsApi.forms$.subscribe((forms) => {
-      console.warn(forms)
       this.forms = forms
       this.ref.markForCheck();
     }, (err) => {

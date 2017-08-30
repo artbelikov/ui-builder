@@ -4,26 +4,19 @@ import { ElementsTypes } from '@app/+form/classes/element.class';
 import { Observable } from "rxjs/Observable";
 
 @Injectable()
-export class ElementsStackService {
-    public stack: any[];
-    public stack$;
-    public stackObserver;
-    public cursorPosition = 0;
-
+export class ElementsService {
 
     constructor() {
-        this.stack$ = new Observable(observer => this.stackObserver = observer);
     }
 
     addElement(type){
         let element;
-        switch (type){
+        let currentEl = ElementsTypes[type]
+        switch (currentEl){
             case ElementsTypes.Text:
                 element = new UIText();
-                this.stack.splice( this.cursorPosition, 0, element );
                 break
         }
-        this.stackObserver.next(this.stack);
         return element
     }
 

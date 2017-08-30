@@ -23,7 +23,10 @@ export class FormsPropsComponent {
   }
 
   @Input() set formId(id){
-    this.form = this.formApi.getForm(id)
+    this.formApi.fetchForm(id).then( form => {
+      this.form = form
+      this.ref.detectChanges()
+    })
   }
 
   public isFieldRequired(field){
