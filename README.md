@@ -11,7 +11,7 @@ This tool provides ability to markup UI with predefined components.
 
 ## Getting Started
 
-To start you also need to run a [backend](https://github.com/artbelikov/ui-builder-backend) for ui-builder.
+To start you also going to need to run a [backend](https://github.com/artbelikov/ui-builder-backend) for ui-builder.
 
     ```
     npm start
