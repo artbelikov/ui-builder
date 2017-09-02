@@ -48,4 +48,16 @@
         </div>
     </div>
 
+    <div class="field" *ngIf="element.type === 'Select'">
+        <label class="label is-small">Add option</label>
+        <div class="control">
+            <table>
+                <tr *ngFor="let option of element.options">
+                    <td><input type="text" [(ngModel)]="option.value"></td>
+                    <td><input type="text" [(ngModel)]="option.label"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
 </div>
