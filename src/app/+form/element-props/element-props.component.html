@@ -48,13 +48,61 @@
         </div>
     </div>
 
-    <div class="field" *ngIf="element.type === 'Select'">
-        <label class="label is-small">Add option</label>
+    <div class="field">
+        <label class="checkbox is-size-7">
+            <input [(ngModel)]="element.modifyBefore" type="checkbox">
+            Modify value before show
+        </label>
+    </div>
+    <div class="field" *ngIf="element.modifyBefore">
+        <label class="label is-small">Function name</label>
         <div class="control">
-            <table>
+            <input class="input is-small"
+                   [(ngModel)]="element.modifyBeforeFnc">
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="checkbox is-size-7">
+            <input [(ngModel)]="element.modifyAfter" type="checkbox">
+            Modify value before save
+        </label>
+    </div>
+    <div class="field" *ngIf="element.modifyAfter">
+        <label class="label is-small">Function name</label>
+        <div class="control">
+            <input class="input is-small"
+                   [(ngModel)]="element.modifyAfterFnc">
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="checkbox is-size-7">
+            <input [(ngModel)]="element.modifyOnChange" type="checkbox">
+            Modify value after each change
+        </label>
+    </div>
+    <div class="field" *ngIf="element.modifyOnChange">
+        <label class="label is-small">Function name</label>
+        <div class="control">
+            <input class="input is-small"
+                   [(ngModel)]="element.modifyOnChangeFnc">
+        </div>
+    </div>
+
+    <div class="field" *ngIf="element.type === 'Select'">
+        <label class="label is-small"><a href="javascript:" (click)="element.addOption()">Add option</a></label>
+        <div class="control">
+            <table class="select-options-table table is-bordered">
+                <thead>
+                <tr class="is-size-7">
+                    <th>Value</th>
+                    <th>Label</th>
+                </tr>
+                </thead>
                 <tr *ngFor="let option of element.options">
-                    <td><input type="text" [(ngModel)]="option.value"></td>
-                    <td><input type="text" [(ngModel)]="option.label"></td>
+                    <td><input class="input is-small" type="text" [(ngModel)]="option.value"></td>
+                    <td><input class="input is-small" type="text" [(ngModel)]="option.label"></td>
                 </tr>
             </table>
         </div>
