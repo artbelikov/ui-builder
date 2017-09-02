@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="column is-one-third" *ngIf="forms">
-            <form-props [formId]="forms.selectedFormId"></form-props>
+            <form-props [formIns]="forms.getForm(forms.selectedFormId)"></form-props>
         </div>
     </div>
 </main>

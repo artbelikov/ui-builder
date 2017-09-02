@@ -1,0 +1,51 @@
+<div *ngIf="element">
+    <div class="field">
+        <label class="label is-small">ID</label>
+        <div class="control">
+            <input class="input is-small"
+                   readonly
+                   [(ngModel)]="element.id">
+        </div>
+    </div>
+    <div class="field">
+        <label class="label is-small">Alias</label>
+        <div class="control">
+            <input class="input is-small"
+                   [(ngModel)]="element.alias">
+        </div>
+    </div>
+    <div class="field">
+        <label class="label is-small">Value source</label>
+        <div class="control">
+            <div class="select is-small">
+                <select [(ngModel)]="element.valueSource">
+                    <option [ngValue]="0">Simple value</option>
+                    <option [ngValue]="1">Function</option>
+                    <option [ngValue]="2">Bind to property</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="field" *ngIf="element.valueSource === 0">
+        <label class="label is-small">Value</label>
+        <div class="control">
+            <input class="input is-small"
+                   [(ngModel)]="element.value">
+        </div>
+    </div>
+    <div class="field" *ngIf="element.valueSource === 1">
+        <label class="label is-small">Function name</label>
+        <div class="control">
+            <input class="input is-small"
+                   [(ngModel)]="element.sourceFunction">
+        </div>
+    </div>
+    <div class="field" *ngIf="element.valueSource === 2">
+        <label class="label is-small">Property path</label>
+        <div class="control">
+            <input class="input is-small"
+                   [(ngModel)]="element.bindTo">
+        </div>
+    </div>
+
+</div>

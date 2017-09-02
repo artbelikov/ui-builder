@@ -26,10 +26,20 @@ export class UIFormComponent {
 
   public ngOnInit () {
     this.formsApi.fetchForm(this.formId).then(form => {
-      form.elements = form.elements || []
+      form.elements = form.elements ? this.elements.load(form.elements) : []
+      console.warn(form.elements)
       this.form = form
       this.ref.detectChanges()
     })
+  }
+
+  public getElement(id){
+    return this.form && _.find(this.form.elements, elem => elem.id === id)
+  }
+
+  public selectElement(event, elem){
+    event.stopPropagation()
+    this.selectedElement = elem ? elem.id : null
   }
 
   public addElement(event){

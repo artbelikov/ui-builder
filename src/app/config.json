@@ -87,8 +87,8 @@
     },
     {
       "element": "checkbox",
-      "prop": "isMandatory",
-      "label": "Mandatory mode"
+      "prop": "isSpecial",
+      "label": "Special mode"
     }
   ]
 }

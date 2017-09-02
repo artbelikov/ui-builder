@@ -3,21 +3,24 @@
         <div class="column is-clipped is-2">
             <toolbar></toolbar>
         </div>
-        <div class="column is-clipped">
+        <div class="column is-clipped" (click)="selectElement($event, null)">
             <div class="elements-droparea is-overlay"
                  appDroparea
                  (drop)="addElement($event)"
             >
                 <div class="elements-stack" *ngIf="form">
-                    <div class="ui-element" *ngFor="let el of form.elements; let i = index">
-                        {{el}}
+                    <div [ngClass]="{'ui-element':!0, 'selected': selectedElement === el.id}"
+                         (click)="selectElement($event, el)"
+                         *ngFor="let el of form.elements; let i = index">
+                        <span>{{el.alias || el.type}}</span>
                     </div>
                 </div>
             </div>
 
         </div>
         <div class="column is-clipped is-3">
-            <form-props [formId]="formId"></form-props>
+            <element-props *ngIf="selectedElement" [elementIns]="getElement(selectedElement)"></element-props>
+            <form-props *ngIf="!selectedElement" [formIns]="form"></form-props>
         </div>
     </div>
 </main>

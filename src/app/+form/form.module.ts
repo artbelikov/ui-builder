@@ -9,14 +9,14 @@ import { ElementsService } from '@app/+form/services/elements.service'
 import { DropareaDirective } from '@app/+form/services/droparea.directive'
 import { SharedModule } from '@app/shared/shared.module'
 import { FormsModule } from '@angular/forms'
-
-console.log('`Form` bundle loaded asynchronously')
+import { ElementPropsComponent } from '@app/+form/element-props/element-props.component'
 
 @NgModule({
   declarations: [
     UIFormComponent,
     ToolbarComponent,
     DropareaDirective,
+    ElementPropsComponent
   ],
   imports: [
     CommonModule,

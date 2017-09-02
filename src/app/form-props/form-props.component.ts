@@ -22,11 +22,11 @@ export class FormsPropsComponent {
 
   }
 
-  @Input() set formId(id){
-    this.formApi.fetchForm(id).then( form => {
+  @Input() set formIns(form){
+    if (form){
       this.form = form
       this.ref.detectChanges()
-    })
+    }
   }
 
   public isFieldRequired(field){

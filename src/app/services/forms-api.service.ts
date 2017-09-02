@@ -83,17 +83,17 @@ export class FormsApiService{
 
   private onCreated(form) {
     this.dataStore.forms.set(form);
-    this.formsObserver.next(this.dataStore.forms);
+    this.formsObserver && this.formsObserver.next(this.dataStore.forms);
   }
 
   private onUpdated(form) {
     this.dataStore.forms.set(form)
-    this.formsObserver.next(this.dataStore.forms);
+    this.formsObserver && this.formsObserver.next(this.dataStore.forms);
   }
 
   private onRemoved(form) {
     this.dataStore.forms.remove(form.id);
-    this.formsObserver.next(this.dataStore.forms);
+    this.formsObserver && this.formsObserver.next(this.dataStore.forms);
   }
 
 }

@@ -12,3 +12,16 @@
 .elements-stack{
   padding: 15px;
 }
+.ui-element{
+  border: 2px solid #adadad;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  cursor: pointer;
+  &.selected{
+    border: 2px solid #ff7113;
+  }
+}

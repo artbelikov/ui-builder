@@ -1,5 +1,13 @@
 <div *ngIf="form">
     <div class="field">
+        <label class="label is-small">ID</label>
+        <div class="control">
+            <input class="input is-small"
+                   readonly
+                   [(ngModel)]="form.id">
+        </div>
+    </div>
+    <div class="field">
         <label class="label is-small">Form title</label>
         <div class="control has-icons-right">
             <input [ngClass]="{'input is-small': !0, 'is-danger': isFieldRequired(formTitle)}"
