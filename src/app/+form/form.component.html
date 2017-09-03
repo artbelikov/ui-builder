@@ -6,11 +6,14 @@
         <div class="column is-clipped" (click)="selectElement($event, null)">
             <div class="elements-droparea is-overlay"
                  appDroparea
+                 (dragover)="onDragover($event)"
+                 (dragleave)="onLeave($event)"
                  (drop)="addElement($event)"
             >
                 <div class="elements-stack" *ngIf="form">
-                    <div [ngClass]="{'ui-element':!0, 'selected': selectedElement === el.id}"
+                    <div [ngClass]="{'ui-element':!0, 'selected': selectedElement === el.id, 'cursor': isElementCursor(i)}"
                          (click)="selectElement($event, el)"
+                         (dragenter)="pointCursor(i)"
                          *ngFor="let el of form.elements; let i = index">
                         <span>{{el.alias || el.type}}</span>
                     </div>

@@ -1,7 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-} from '@angular/core'
+import { ChangeDetectorRef, Component, } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { FormsApiService } from '@app/services/forms-api.service'
 import { ElementsService } from '@app/+form/services/elements.service'
@@ -15,6 +12,7 @@ export class UIFormComponent {
   public formId
   public form;
   public selectedElement
+  public whileDraging
   public cursorPosition = 0
 
   constructor (private elements: ElementsService,
@@ -43,12 +41,29 @@ export class UIFormComponent {
   }
 
   public addElement(event){
+    this.whileDraging - false
     let elementType = event.dataTransfer.getData("text/plain")
     console.warn(elementType)
     let element = this.elements.addElement(elementType)
     this.form.elements.splice(this.cursorPosition, 0, element)
     this.cursorPosition = this.form.elements.length
     console.warn(element)
+  }
+
+  public isElementCursor (i) {
+    return this.whileDraging && this.cursorPosition === i
+  }
+
+  public pointCursor (i) {
+    this.cursorPosition = i
+  }
+
+  public onDragover () {
+    this.whileDraging = true
+  }
+
+  public onLeave () {
+    this.whileDraging = false
   }
 
 }

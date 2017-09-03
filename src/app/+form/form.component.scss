@@ -21,7 +21,19 @@
   box-sizing: border-box;
   margin-bottom: 10px;
   cursor: pointer;
+  position: relative;
   &.selected{
     border: 2px solid #ff7113;
+  }
+  &.cursor {
+    &:before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 0;
+      right: 0;
+      height: 0;
+      border-top: 2px dotted #000000;
+    }
   }
 }
