@@ -41,7 +41,7 @@ export class UIFormComponent {
   }
 
   public addElement(event){
-    this.whileDraging - false
+    this.whileDraging = false
     let elementType = event.dataTransfer.getData("text/plain")
     console.warn(elementType)
     let element = this.elements.addElement(elementType)

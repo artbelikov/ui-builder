@@ -19,5 +19,9 @@ export enum ElementsTypes {
   Text,
   Date,
   Time,
-  Select
+  Select,
+  Textarea,
+  Grid,
+  Button,
+  FormLink
 }
